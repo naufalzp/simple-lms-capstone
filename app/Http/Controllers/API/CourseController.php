@@ -22,7 +22,7 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->query('per_page', 10);
-        $courses = Course::with('teacher')->paginate($perPage);
+        $courses = Course::with('teacher', 'category')->paginate($perPage);
 
         return response()->json([
             'status' => 'success',
@@ -43,6 +43,7 @@ class CourseController extends Controller
             'name' => 'required|string',
             'description' => 'required|string',
             'price' => 'required|numeric',
+            'category_id' => 'nullable|exists:course_categories,id',
         ]);
 
         if (!$validated) {
@@ -61,7 +62,7 @@ class CourseController extends Controller
 
         $course = Course::create($validated);
 
-        $course->load('teacher');
+        $course->load('teacher', 'category');
 
         return response()->json([
             'status' => 'success',
@@ -87,7 +88,7 @@ class CourseController extends Controller
             ], 404);
         }
 
-        $course->load('teacher');
+        $course->load('teacher', 'category');
 
         return response()->json([
             'status' => 'success',
@@ -109,6 +110,7 @@ class CourseController extends Controller
             'name' => 'required|string',
             'description' => 'required|string',
             'price' => 'required|numeric',
+            'category_id' => 'nullable|exists:course_categories,id',
         ]);
 
         if (!$validated) {
@@ -141,7 +143,7 @@ class CourseController extends Controller
 
         $course->update($validated);
 
-        $course->load('teacher');
+        $course->load('teacher', 'category');
 
         return response()->json([
             'status' => 'success',

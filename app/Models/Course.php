@@ -34,6 +34,11 @@ class Course extends Model
         return $this->hasMany(CourseAnnouncement::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(CourseCategory::class, 'category_id');
+    }
+
     public function isMember($user)
     {
         return $this->members()->where('user_id', $user->id)->exists();

@@ -9,7 +9,8 @@ class CourseCategory extends Model
 {
     protected $fillable = [
         'name',
-        'slug'
+        'slug',
+        'user_id'
     ];
 
     public function setSlugAttribute($value)
@@ -20,5 +21,10 @@ class CourseCategory extends Model
     public function courses()
     {
         return $this->hasMany(Course::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
