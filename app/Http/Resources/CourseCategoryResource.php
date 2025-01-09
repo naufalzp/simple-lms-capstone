@@ -18,7 +18,7 @@ class CourseCategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'user_id' => $this->user_id,
+            'created_by' => $this->created_by,
             'user' => new UserResource($this->whenLoaded('user')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
