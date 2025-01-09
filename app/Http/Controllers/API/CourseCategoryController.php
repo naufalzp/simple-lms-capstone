@@ -45,7 +45,7 @@ class CourseCategoryController extends Controller
             ], 400);
         }
 
-        $courseCategory['user_id'] = $request->user()->id;
+        $courseCategory['created_by'] = $request->user()->id;
 
         $courseCategory = CourseCategory::create($validated);
 
@@ -102,7 +102,7 @@ class CourseCategoryController extends Controller
             ], 404);
         }
 
-        if ($courseCategory->user_id !== $request->user()->id) {
+        if ($courseCategory->created_by !== $request->user()->id) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'You are not authorized to delete this course category'
