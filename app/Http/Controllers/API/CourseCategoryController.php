@@ -7,7 +7,7 @@ use App\Http\Resources\CourseCategoryResource;
 use App\Models\CourseCategory;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class CourseCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -113,7 +113,7 @@ class CategoryController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'CourseCategory deleted successfully'
+            'message' => 'Course Category deleted successfully'
         ], 200);
     }
 }
