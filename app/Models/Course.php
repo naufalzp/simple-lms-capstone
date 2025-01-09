@@ -11,7 +11,8 @@ class Course extends Model
         'description',
         'price',
         'image',
-        'teacher_id'
+        'teacher_id',
+        'category_id',
     ];
 
     public function teacher()
@@ -37,6 +38,11 @@ class Course extends Model
     public function category()
     {
         return $this->belongsTo(CourseCategory::class, 'category_id');
+    }
+
+    public function feedbacks()
+    {
+        return $this->hasMany(CourseFeedback::class);
     }
 
     public function isMember($user)
