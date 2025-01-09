@@ -10,7 +10,7 @@ class CourseCategory extends Model
     protected $fillable = [
         'name',
         'slug',
-        'user_id'
+        'created_by'
     ];
 
     public function setSlugAttribute($value)
@@ -25,6 +25,6 @@ class CourseCategory extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'created_by');
     }
 }
