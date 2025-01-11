@@ -1,66 +1,226 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Simple LMS - PSS Capstone Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Proyek ini menyediakan lingkungan Dockerized untuk Laravel 11, termasuk PHP, Nginx, dan MySQL untuk keperluan pengembangan. Ikuti langkah-langkah di bawah untuk menjalankan proyek ini.
 
-## About Laravel
+Proyek ini dibuat untuk memenuhi tugas UAS mata kuliah Pemrograman Sisi Server.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Deskripsi Proyek
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Aplikasi ini bertujuan untuk menyediakan platform Learning Management System (LMS) sederhana untuk mengelola data pengguna, materi kursus, dan aktivitas pembelajaran.
 
-## Learning Laravel
+### **Fitur Utama**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. **Manajemen Course**  
+   Pengelolaan kursus termasuk membuat, mengedit, menghapus, dan menampilkan kursus.
+2. **Course Content Management**  
+   Pengelolaan materi pembelajaran di setiap kursus.
+3. **Course Member Management**  
+   Manajemen anggota kursus (student dan teacher).
+4. **Comment System**  
+   Sistem komentar untuk diskusi pada setiap kursus.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## **Fitur Tambahan**
 
-## Laravel Sponsors
+### **1. Register (+1)**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+-   **Fungsi**: Memungkinkan calon pengguna untuk mendaftar dengan mengisi biodata dan data login.
+-   **Endpoint**:
+    -   **POST** `api/v1/register` _(throttled)_
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### **2. Course Announcements (+4)**
 
-## Contributing
+Fitur ini memungkinkan teacher membuat pengumuman untuk course tertentu.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+-   **Endpoint**:
+    -   **POST** `api/v1/announcements`
+        -   Menambahkan pengumuman (hanya teacher).
+    -   **GET** `api/v1/courses/{id}/announcements`
+        -   Menampilkan semua pengumuman pada kursus (teacher dan student).
+    -   **PUT** `api/v1/announcements/{id}`
+        -   Mengedit pengumuman (hanya teacher).
+    -   **DELETE** `api/v1/announcements/{id}`
+        -   Menghapus pengumuman (hanya teacher).
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### **3. Course Feedback (+4)**
 
-## Security Vulnerabilities
+Fitur untuk mengumpulkan umpan balik dari student terhadap kursus.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+-   **Endpoint**:
+    -   **POST** `api/v1/courses/{courseId}/feedbacks`
+        -   Menambahkan feedback (student).
+    -   **GET** `api/v1/courses/{courseId}/feedbacks`
+        -   Menampilkan semua feedback.
+    -   **GET** `api/v1/courses/{courseId}/feedbacks/{id}`
+        -   Menampilkan detail feedback tertentu.
+    -   **PUT** `api/v1/courses/{courseId}/feedbacks/{id}`
+        -   Mengedit feedback (hanya feedback milik student).
+    -   **DELETE** `api/v1/courses/{courseId}/feedbacks/{id}`
+        -   Menghapus feedback (hanya feedback milik student).
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### **4. Course Categories Management (+4)**
+
+Fitur untuk mengelola kategori kursus dan mengaitkannya dengan kursus.
+
+-   **Endpoint**:
+
+    -   **POST** `api/v1/categories`
+        -   Membuat kategori baru (teacher).
+    -   **GET** `api/v1/categories`
+        -   Menampilkan semua kategori.
+    -   **GET** `api/v1/categories/{id}`
+        -   Menampilkan detail kategori.
+    -   **DELETE** `api/v1/categories/{id}`
+        -   Menghapus kategori.
+
+-   **Peningkatan**:
+    -   **Kolom Kategori di Course**
+        -   Menambahkan kolom kategori (opsional) saat membuat atau mengedit kursus.
+
+---
+
+### **5. API Rate Limiting (+4)**
+
+Untuk melindungi API dari penyalahgunaan, beberapa batasan diberlakukan:
+
+-   **Limit Register**: 1 IP hanya dapat melakukan **5 kali register** dalam sehari.
+-   **Limit Comment**: 1 student hanya dapat memposting **10 komentar** dalam 1 jam.
+-   **Limit Course Creation**: 1 teacher hanya dapat membuat **1 kursus** dalam sehari.
+-   **Limit Content Creation**: 1 teacher hanya dapat membuat **10 konten** dalam 1 jam.
+
+---
+
+## Dokumentasi API
+
+Dokumentasi API tambahan untuk fitur baru dapat diakses di: http://localhost:8080/docs/api
+
+---
+
+## Prasyarat
+
+Pastikan Anda telah menginstal:
+
+-   [Docker](https://docs.docker.com/get-docker/)
+-   [Docker Compose](https://docs.docker.com/compose/install/)
+
+## Memulai
+
+### Langkah 1: Clone Repository
+
+```bash
+git clone https://github.com/naufalzp/simple-lms-capstone.git
+cd simple-lms-capstone
+```
+
+`Pastikan Docker Engine sudah berjalan sebelum melanjutkan.`
+
+### Langkah 2: Build dan Jalankan Kontainer Docker
+
+Pastikan berada di direktori utama proyek (`simple-lms-capstone`) dan jalankan perintah berikut untuk membangun dan memulai kontainer:
+
+```bash
+docker-compose up -d --build
+```
+
+### Langkah 3: Atur Izin
+
+Untuk menghindari masalah izin, atur izin untuk direktori penyimpanan (`storage`) dan cache Laravel:
+
+```bash
+docker-compose exec app chmod -R 777 /var/www/storage /var/www/bootstrap/cache
+```
+
+### Langkah 4: Konfigurasi Laravel
+
+1. Install dependensi Laravel menggunakan Composer:
+
+    ```bash
+    docker exec simple-lms-app composer install
+    ```
+
+2. Salin file `.env.example` menjadi `.env`:
+
+    ```bash
+    docker exec simple-lms-app cp .env.example .env
+    ```
+
+3. Generate application key:
+
+    ```bash
+    docker exec simple-lms-app php artisan key:generate
+    ```
+
+### Langkah 5: Atur Konfigurasi Database
+
+Perbarui konfigurasi database di file `.env`:
+
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=simple_lms
+DB_USERNAME=simple_lms
+DB_PASSWORD=laravel
+```
+
+### Langkah 6: Jalankan Migrasi
+
+Jalankan migrasi untuk membuat tabel dan mengisi data awal:
+
+```bash
+docker exec simple-lms-app php artisan migrate --seed
+```
+
+### Mengakses Aplikasi
+
+Setelah kontainer berjalan, Anda bisa mengakses aplikasi Laravel di: [http://localhost:8080](http://localhost:8080)
+
+## Dokumentasi API
+
+Dokumentasi API dapat diakses di: [http://localhost:8080/docs/api](http://localhost:8080/docs/api)
+
+## Menghentikan Kontainer
+
+Untuk menghentikan kontainer Docker, jalankan:
+
+```bash
+docker-compose down
+```
+
+## Perintah Tambahan
+
+-   **Membangun Ulang Kontainer**: Jika Anda melakukan perubahan pada `Dockerfile` atau `docker-compose.yml`, Anda dapat membangun ulang kontainer dengan:
+
+    ```bash
+    docker-compose up -d --build
+    ```
+
+-   **Mengakses Kontainer PHP**: Untuk masuk ke dalam kontainer PHP dan menjalankan perintah Artisan, gunakan:
+
+    ```bash
+    docker exec -it simple-lms-app bash
+    ```
+
+-   **Mengakses Kontainer MySQL**: Untuk masuk ke dalam kontainer MySQL, gunakan:
+
+    ```bash
+    docker exec -it mysql mysql -u simple_lms -p
+    ```
+
+    Masukkan password `laravel` untuk mengakses database.
+
+## Struktur Proyek
+
+-   `Dockerfile`: Mendefinisikan lingkungan PHP-FPM.
+-   `docker-compose.yml`: Mengatur kontainer Laravel, Nginx, dan MySQL.
+-   `nginx/laravel.conf`: File konfigurasi Nginx untuk menjalankan aplikasi Laravel.
+-   `mysql-data/`: Direktori penyimpanan data MySQL (dibuat otomatis oleh Docker).
