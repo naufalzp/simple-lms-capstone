@@ -12,7 +12,12 @@ use Illuminate\Http\Request;
 
 class CourseContentController extends Controller
 {
-
+    /**
+     * Store a new content for a specific course
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request, int $id)
     {
         $course = Course::find($id);
@@ -57,6 +62,7 @@ class CourseContentController extends Controller
             'data' => new CourseContentResource($content)
         ], 201);
     }
+    
     /**
      * Get comments for a specific content
      *
@@ -79,7 +85,7 @@ class CourseContentController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Comments retrieved successfully',
-            'data' => CourseContentResource::collection($content)
+            'data' => new CourseContentResource($content)
         ], 200);
     }
 
@@ -101,7 +107,7 @@ class CourseContentController extends Controller
             ], 404);
         }
 
-        if ($content->course->isMember($request->user() === false)) {
+        if ($content->course->isMember($request->user()) === false) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'You are not a member of this course'
