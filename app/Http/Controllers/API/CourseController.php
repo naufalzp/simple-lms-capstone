@@ -192,7 +192,7 @@ class CourseController extends Controller
      */
     public function myCourses(Request $request)
     {
-        $courses = Course::where('teacher_id', $request->user()->id)->get();
+        $courses = Course::where('teacher_id', $request->user()->id)->with('teacher', 'category')->get();
 
         return response()->json([
             'status' => 'success',
@@ -221,7 +221,7 @@ class CourseController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Course contents retrieved successfully',
-            'data' => new CourseContentResource($course->contents)
+            'data' => CourseContentResource::collection($course->contents)
         ], 200);
     }
 
