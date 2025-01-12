@@ -22,7 +22,7 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->query('per_page', 10);
-        $courses = Course::with('teacher', 'category')->paginate($perPage);
+        $courses = Course::with('teacher', 'category', 'members')->paginate($perPage);
 
         return response()->json([
             'status' => 'success',
@@ -62,7 +62,7 @@ class CourseController extends Controller
 
         $course = Course::create($validated);
 
-        $course->load('teacher', 'category');
+        $course->load('teacher', 'category', 'members');
 
         return response()->json([
             'status' => 'success',
@@ -88,7 +88,7 @@ class CourseController extends Controller
             ], 404);
         }
 
-        $course->load('teacher', 'category');
+        $course->load('teacher', 'category', 'members');
 
         return response()->json([
             'status' => 'success',
@@ -192,7 +192,7 @@ class CourseController extends Controller
      */
     public function myCourses(Request $request)
     {
-        $courses = Course::where('teacher_id', $request->user()->id)->with('teacher', 'category')->get();
+        $courses = Course::where('teacher_id', $request->user()->id)->with('teacher', 'category', 'members')->get();
 
         return response()->json([
             'status' => 'success',
