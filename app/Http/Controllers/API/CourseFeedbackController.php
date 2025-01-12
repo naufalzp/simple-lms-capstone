@@ -65,7 +65,6 @@ class CourseFeedbackController extends Controller
 
         $validated = $request->validate([
             'feedback' => 'required|string',
-            'member_id' => 'required|exists:course_members,id',
         ]);
 
         if (!$validated) {
@@ -75,6 +74,8 @@ class CourseFeedbackController extends Controller
                 'errors' => $validated
             ], 400);
         }
+
+        $validated['member_id'] = $request->user()->id;
 
         $validated['course_id'] = $courseId;
 
@@ -162,7 +163,6 @@ class CourseFeedbackController extends Controller
 
         $validated = $request->validate([
             'feedback' => 'required|string',
-            'member_id' => 'required|exists:course_members,id',
         ]);
 
         if (!$validated) {
@@ -172,6 +172,8 @@ class CourseFeedbackController extends Controller
                 'errors' => $validated
             ], 400);
         }
+
+        $validated['member_id'] = $request->user()->id;
 
         $validated['course_id'] = $courseId;
 
