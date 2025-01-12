@@ -35,6 +35,7 @@ class CourseCategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string',
+            'slug' => 'required|string|unique:course_categories',
         ]);
 
         if (!$validated) {
@@ -45,7 +46,7 @@ class CourseCategoryController extends Controller
             ], 400);
         }
 
-        $courseCategory['created_by'] = $request->user()->id;
+        $validated['created_by'] = $request->user()->id;
 
         $courseCategory = CourseCategory::create($validated);
 
