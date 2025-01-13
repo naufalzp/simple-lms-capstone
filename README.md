@@ -2,7 +2,7 @@
 
 Proyek ini menyediakan lingkungan Dockerized untuk Laravel 11, termasuk PHP, Nginx, dan MySQL untuk keperluan pengembangan. Ikuti langkah-langkah di bawah untuk menjalankan proyek ini.
 
-Proyek ini dibuat untuk memenuhi tugas UAS mata kuliah Pemrograman Sisi Server.
+Proyek ini dibuat untuk memenuhi tugas UAS mata kuliah Pemrograman Sisi Server oleh Naufal Zhafif Pradipta (A11.2022.14474).
 
 ---
 
